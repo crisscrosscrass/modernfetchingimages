@@ -3,6 +3,7 @@ import ImageForrestData from './data/ForrestData'
 import imageAlisaData from './data/AlisaAmoreData'
 import imageJordanData from './data/JordanCarversData'
 import FetchingImagesContainer from './FetchingImagesContainer'
+import Modal from './ModalContainer'
 import './hoverImage.css'
 
 class ModernFetchingImages extends Component{
@@ -10,15 +11,16 @@ class ModernFetchingImages extends Component{
     super()
     this.state = {
       ImageData : [],
-      isLoaded: false
+      isLoaded: false,
+      ModalImage: ""
     }
     this.updateImageForrest = this.updateImageForrest.bind(this)
     this.updateImageAlisa = this.updateImageAlisa.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.removedMouse = this.removedMouse.bind(this)
   }
   componentDidMount() {
-    this.setState({isLoaded:false})
-    this.updateImageForrest();
-    this.setState({isLoaded:true})
+    this.updateImageTo(ImageForrestData);
   }
 
   updateImageTo(imageObjectData){
@@ -28,8 +30,10 @@ class ModernFetchingImages extends Component{
       this.setState(prevState => ({
         ImageData: [...prevState.ImageData, ImageObject]
       }))
-    });   
-    this.setState({isLoaded:true})
+    });
+    setTimeout(() =>{
+      this.setState({isLoaded:true})
+  }, 600)
   }
   updateImageAlisa(){
     this.updateImageTo(imageAlisaData);
@@ -55,13 +59,42 @@ class ModernFetchingImages extends Component{
   updateImageJordan(){
     this.updateImageTo(imageJordanData);
   }
+  handleClick(id){
+    console.log("You entered on ID: "+id)
+    document.getElementById("imageGalleryItem"+id).classList.add('markedItem');
+    if ( document.getElementById("modal-container").classList.contains('out') ){
+      document.getElementById("modal-container").classList.toggle('out');
+    }
+
+    this.state.ImageData.forEach(ItemObject => {
+      if(ItemObject.id === id){
+        // console.log(ItemObject.imageUrl)
+        this.setState({ModalImage:ItemObject.imageUrl})
+      }
+    })
+    document.getElementById("modal-container").classList.add('one');
+  }
+  removedMouse(id){
+    if ( document.getElementById("imageGalleryItem"+id).classList.contains('markedItem') ){
+      document.getElementById("imageGalleryItem"+id).classList.toggle('markedItem');
+    }
+  }
+  closeModal(){
+    var elmnt = document.getElementById("modalcontent");
+    elmnt.scrollTop = 0;
+    if ( document.getElementById("modal-container").classList.contains('out') ){
+      document.getElementById("modal-container").classList.toggle('out');
+    }else{
+      document.getElementById("modal-container").classList.add('out');
+    }
+  }
 
   render(){
     const {isLoaded} = this.state;
 
     if(!isLoaded){
       return (
-        <div>
+        <div className="centerDiv">
         <p>Loading..</p>
         <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt="" />
       </div>
@@ -69,7 +102,11 @@ class ModernFetchingImages extends Component{
     }else{
       return(
         <div className="centerDiv">
-            <FetchingImagesContainer state={this.state}/>
+        <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} />
+        <div className="content">
+          <h1>Modal Animations</h1>
+        </div>
+          <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>
         </div>
       )
     }
