@@ -133,9 +133,8 @@ class ModernFetchingImages extends Component{
           <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} />
           <Modal />
           <div style={styleCenter}>
-          <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>
-          
-        </div>
+            <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>  
+          </div>
         </div>
       )
     }
