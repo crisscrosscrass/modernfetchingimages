@@ -80,8 +80,7 @@ class ModernFetchingImages extends Component{
     }
   }
   closeModal(){
-    var elmnt = document.getElementById("modalcontent");
-    elmnt.scrollTop = 0;
+    document.getElementById("modalcontent").scrollTop = 0;
     if ( document.getElementById("modal-container").classList.contains('out') ){
       document.getElementById("modal-container").classList.toggle('out');
     }else{
