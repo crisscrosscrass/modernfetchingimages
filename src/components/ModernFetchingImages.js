@@ -5,6 +5,7 @@ import imageJordanData from './data/JordanCarversData'
 import FetchingImagesContainer from './FetchingImagesContainer'
 import Modal from './ModalContainer'
 import './hoverImage.css'
+import Tabletop from 'tabletop'
 
 class ModernFetchingImages extends Component{
   constructor(){
@@ -12,10 +13,13 @@ class ModernFetchingImages extends Component{
     this.state = {
       ImageData : [],
       isLoaded: false,
-      ModalImage: ""
+      ModalImage: "",
+      authorUrl: "",
+      filename: ""
     }
     this.updateImageForrest = this.updateImageForrest.bind(this)
     this.updateImageAlisa = this.updateImageAlisa.bind(this)
+    this.updateImageAlice = this.updateImageAlice.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.removedMouse = this.removedMouse.bind(this)
   }
@@ -59,8 +63,27 @@ class ModernFetchingImages extends Component{
   updateImageJordan(){
     this.updateImageTo(imageJordanData);
   }
+  updateImageAlice(){
+    this.setState({isLoaded:false})
+   // testfeed url 'https://docs.google.com/spreadsheets/d/16xXH9qj5dHhxAruxGFrnvANplpPhQC8CSS0R0NsNgGc/export?format=csv'
+   // alice goodwin feed url https://docs.google.com/spreadsheets/d/1YXkSXQR4F1cswvGRS2di9Tux3eXtlHKwQrS-HMPs-Ls/export?format=csv
+   Tabletop.init({
+    key: '1YXkSXQR4F1cswvGRS2di9Tux3eXtlHKwQrS-HMPs-Ls',
+    callback: googleData => {
+      // console.log('google sheet data --->', googleData)
+      this.setState(prevState => ({ImageData: []}))
+      googleData.forEach(ImageObject => {
+        this.setState(prevState => ({
+          ImageData: [...prevState.ImageData, ImageObject]
+        }))
+      });
+      this.setState({isLoaded:true})
+    },
+    simpleSheet: true
+  })
+  
+  }
   handleClick(id){
-    console.log("You entered on ID: "+id)
     document.getElementById("imageGalleryItem"+id).classList.add('markedItem');
     if ( document.getElementById("modal-container").classList.contains('out') ){
       document.getElementById("modal-container").classList.toggle('out');
@@ -70,9 +93,11 @@ class ModernFetchingImages extends Component{
       if(ItemObject.id === id){
         // console.log(ItemObject.imageUrl)
         this.setState({ModalImage:ItemObject.imageUrl})
+        this.setState({authorUrl:ItemObject.author_url})
+        this.setState({filename:ItemObject.filename})
       }
     })
-    document.getElementById("modal-container").classList.add('one');
+    document.getElementById("modal-container").classList.add('modalWindow');
   }
   removedMouse(id){
     if ( document.getElementById("imageGalleryItem"+id).classList.contains('markedItem') ){
@@ -90,22 +115,30 @@ class ModernFetchingImages extends Component{
 
   render(){
     const {isLoaded} = this.state;
+    const styleCenter = {
+      margin: "0px auto",
+      padding: "0px",
+      textAlign: "center",
+      backgroundColor: "white"
+    }
 
     if(!isLoaded){
       return (
-        <div className="centerDiv">
+        <div style={styleCenter}>
         <p>Loading..</p>
-        <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt="" />
+        <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt=""/>
       </div>
       )
     }else{
       return(
-        <div className="centerDiv">
-        <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} />
-        <div className="content">
-          <h1>Modal Animations</h1>
-        </div>
+        <div>
+          <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} />
+          <div className="content"></div>
+          <Modal />
+          <div style={styleCenter}>
           <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>
+          
+        </div>
         </div>
       )
     }

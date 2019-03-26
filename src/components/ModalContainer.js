@@ -8,8 +8,8 @@ function Modal(props){
         <div id="modal-container">
           <div className="modal-background" onClick={props.closeModal}>
             <div id="modalcontent" className="modal">
-              <h2>I'm a Modal</h2>
-              <p>Hear me roar.</p>
+              <h2>{props.filename}</h2>
+              <p>{props.authorUrl}</p>
               <img src={props.ModalImage} alt="" style={styleImage}/>
             </div>
           </div>
