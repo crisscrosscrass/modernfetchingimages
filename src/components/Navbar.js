@@ -10,6 +10,7 @@ class Navbar extends Component{
 	render(){
 		return(
 			<header className="headerNavi">
+				NSFW
 				{this.props.children }
 			</header>
 		)

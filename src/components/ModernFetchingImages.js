@@ -37,7 +37,7 @@ class ModernFetchingImages extends Component{
     });
     setTimeout(() =>{
       this.setState({isLoaded:true})
-  }, 600)
+  }, 100)
   }
   updateImageAlisa(){
     this.updateImageTo(imageAlisaData);
@@ -92,9 +92,7 @@ class ModernFetchingImages extends Component{
     this.state.ImageData.forEach(ItemObject => {
       if(ItemObject.id === id){
         // console.log(ItemObject.imageUrl)
-        this.setState({ModalImage:ItemObject.imageUrl})
-        this.setState({authorUrl:ItemObject.author_url})
-        this.setState({filename:ItemObject.filename})
+        this.setState({ModalImage:ItemObject.imageUrl,authorUrl:ItemObject.author_url,filename:ItemObject.filename})
       }
     })
     document.getElementById("modal-container").classList.add('modalWindow');
@@ -133,7 +131,6 @@ class ModernFetchingImages extends Component{
       return(
         <div>
           <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} />
-          <div className="content"></div>
           <Modal />
           <div style={styleCenter}>
           <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>
