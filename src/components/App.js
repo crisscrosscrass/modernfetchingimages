@@ -42,9 +42,11 @@ class App extends Component{
 						<li><button onClick={() => this.ModernImage.current.updateImageAlisa() }>Alisa Amore <span style={styleNSFW}>NSFW</span></button></li>
 						<li><button onClick={() => this.ModernImage.current.updateImageJordan() }>Jordan Carver</button></li>
 						<li><button onClick={() => this.ModernImage.current.updateImageAlice() }>Alice Goodwin <span style={styleNSFW}>NSFW</span></button></li>
-						<li><button >Kate Upton</button></li>
-						<li><button >Holly Peers</button></li>
-						<li><button >Alyssa Arce</button></li>
+						<select>
+							<option>JSON</option>
+							<option>Google Sheet</option>
+							</select>
+						<input type="text" placeholder="Enter feed image url"/><button className="submitButton">Submit</button>
 					</ul>
 				</Navbar>
 				<ModernFetchingImages ref={this.ModernImage} />
