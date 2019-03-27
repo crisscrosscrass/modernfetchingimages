@@ -15,13 +15,16 @@ class ModernFetchingImages extends Component{
       isLoaded: false,
       ModalImage: "",
       authorUrl: "",
-      filename: ""
+      filename: "",
+      selectedID: ""
     }
     this.updateImageForrest = this.updateImageForrest.bind(this)
     this.updateImageAlisa = this.updateImageAlisa.bind(this)
     this.updateImageAlice = this.updateImageAlice.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.removedMouse = this.removedMouse.bind(this)
+    this.goToNextImage = this.goToNextImage.bind(this)
+    this.goToPreviousImage = this.goToPreviousImage.bind(this)
   }
   componentDidMount() {
     this.updateImageTo(ImageForrestData);
@@ -42,21 +45,6 @@ class ModernFetchingImages extends Component{
   updateImageAlisa(){
     this.updateImageTo(imageAlisaData);
   }
-  /* oudated functions stays here if i need to come back
-  updateImageAlisa(){
-    this.setState({isLoaded:false})
-    this.setState(prevState => ({
-      ImageData: []
-    }))
-    imageAlisaData.forEach(Item => {
-      this.setState(prevState => ({
-        // ImageData: prevState.ImageData.concat(imageAlisaData[0]) OLD NEW BELOW
-        ImageData: [...prevState.ImageData, Item]
-      }))
-    });   
-    this.setState({isLoaded:true})
-  }
-  */
   updateImageForrest(){
     this.updateImageTo(ImageForrestData);
   }
@@ -65,7 +53,6 @@ class ModernFetchingImages extends Component{
   }
   updateImageAlice(){
     this.setState({isLoaded:false})
-   // testfeed url 'https://docs.google.com/spreadsheets/d/16xXH9qj5dHhxAruxGFrnvANplpPhQC8CSS0R0NsNgGc/export?format=csv'
    // alice goodwin feed url https://docs.google.com/spreadsheets/d/1YXkSXQR4F1cswvGRS2di9Tux3eXtlHKwQrS-HMPs-Ls/export?format=csv
    Tabletop.init({
     key: '1YXkSXQR4F1cswvGRS2di9Tux3eXtlHKwQrS-HMPs-Ls',
@@ -92,7 +79,7 @@ class ModernFetchingImages extends Component{
     this.state.ImageData.forEach(ItemObject => {
       if(ItemObject.id === id){
         // console.log(ItemObject.imageUrl)
-        this.setState({ModalImage:ItemObject.imageUrl,authorUrl:ItemObject.author_url,filename:ItemObject.filename})
+        this.setState({ModalImage:ItemObject.imageUrl,authorUrl:ItemObject.author_url,filename:ItemObject.filename,selectedID: ItemObject.id})
       }
     })
     document.getElementById("modal-container").classList.add('modalWindow');
@@ -108,6 +95,33 @@ class ModernFetchingImages extends Component{
       document.getElementById("modal-container").classList.toggle('out');
     }else{
       document.getElementById("modal-container").classList.add('out');
+    }
+  }
+  goToNextImage(e){
+    for(var i = 0 , len = this.state.ImageData.length ; i < len ; i++){
+      if(this.state.ImageData[i].id === e.selectedID){
+        // console.log("current id : "+this.state.ImageData[i].id)
+        if (i+1 >= this.state.ImageData.length) {
+          // console.log("next id : "+this.state.ImageData[0].id)
+          this.setState({ModalImage:this.state.ImageData[0].imageUrl,authorUrl:this.state.ImageData[0].author_url,filename:this.state.ImageData[0].filename,selectedID: this.state.ImageData[0].id})
+        }else{
+          // console.log("next id : "+this.state.ImageData[i+1].id)
+           this.setState({ModalImage:this.state.ImageData[i+1].imageUrl,authorUrl:this.state.ImageData[i+1].author_url,filename:this.state.ImageData[i+1].filename,selectedID: this.state.ImageData[i+1].id})
+        }
+      }
+    }
+  }
+  goToPreviousImage(e){
+    for(var i = 0 , len = this.state.ImageData.length ; i < len ; i++){
+      if(this.state.ImageData[i].id === e.selectedID){
+        if (i-1 < 0 ) {
+          // console.log("previous id : "+this.state.ImageData[this.state.ImageData.length-1].id)
+          this.setState({ModalImage:this.state.ImageData[this.state.ImageData.length-1].imageUrl,authorUrl:this.state.ImageData[this.state.ImageData.length-1].author_url,filename:this.state.ImageData[this.state.ImageData.length-1].filename,selectedID: this.state.ImageData[this.state.ImageData.length-1].id})
+        }else{
+          this.setState({ModalImage:this.state.ImageData[i-1].imageUrl,authorUrl:this.state.ImageData[i-1].author_url,filename:this.state.ImageData[i-1].filename,selectedID: this.state.ImageData[i-1].id})
+        }
+        // console.log("current id : "+this.state.ImageData[i].id)
+      }
     }
   }
 
@@ -130,7 +144,7 @@ class ModernFetchingImages extends Component{
     }else{
       return(
         <div>
-          <Modal closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} />
+          <Modal goToPreviousImage={this.goToPreviousImage} goToNextImage={this.goToNextImage} closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} selectedID={this.state.selectedID}/>
           <Modal />
           <div style={styleCenter}>
             <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>  

@@ -24,14 +24,24 @@ class App extends Component{
     };
 
 	render(){
+		const styleNSFW = {
+			width: '100%',
+			color: 'red',
+			textAlign: 'center',
+			verticalAlign: 'top',
+			fontSize: 8,
+			marginTop: 0,
+			marginBottom: 50,
+			paddingBottom: 50
+		}
 		return(
 			<div>
 				<Navbar handleClick={this.handleClick}>
 					<ul>
 						<li><button onClick={(event) => this.ModernImage.current.updateImageForrest()}>Forrest</button></li>
-						<li><button onClick={() => this.ModernImage.current.updateImageAlisa() }>Alisa Amore</button></li>
+						<li><button onClick={() => this.ModernImage.current.updateImageAlisa() }>Alisa Amore <span style={styleNSFW}>NSFW</span></button></li>
 						<li><button onClick={() => this.ModernImage.current.updateImageJordan() }>Jordan Carver</button></li>
-						<li><button onClick={() => this.ModernImage.current.updateImageAlice() }>Alice Goodwin</button></li>
+						<li><button onClick={() => this.ModernImage.current.updateImageAlice() }>Alice Goodwin <span style={styleNSFW}>NSFW</span></button></li>
 						<li><button >Kate Upton</button></li>
 						<li><button >Holly Peers</button></li>
 						<li><button >Alyssa Arce</button></li>

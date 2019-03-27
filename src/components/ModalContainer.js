@@ -20,6 +20,8 @@ function Modal(props){
             <div style={backgroundClick} onClick={props.closeModal}>
             </div>
             <button className="closeButton" onClick={props.closeModal}>Close</button>
+            <button className="arrowRightButton" onClick={ () => props.goToNextImage(props)}>	&gt;</button>
+            <button className="arrowLeftButton" onClick={ () => props.goToPreviousImage(props)}>&lt;</button>
             <div className="content">
             <div id="modalcontent" className="modal">
                 <h2>{props.filename}</h2>
