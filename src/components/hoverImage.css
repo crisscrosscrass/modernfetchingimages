@@ -16,7 +16,7 @@ html,body { height: 90%; margin: 0px; padding: 0px; }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(202, 202, 202); 
+    background: rgb(122, 122, 122); 
   }
 .imageGalleryItem{
     margin: 5%;

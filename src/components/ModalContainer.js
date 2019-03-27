@@ -19,6 +19,7 @@ function Modal(props){
           <div className="modal-background" >
             <div style={backgroundClick} onClick={props.closeModal}>
             </div>
+            <button className="closeButton" onClick={props.closeModal}>Close</button>
             <div className="content">
             <div id="modalcontent" className="modal">
                 <h2>{props.filename}</h2>
