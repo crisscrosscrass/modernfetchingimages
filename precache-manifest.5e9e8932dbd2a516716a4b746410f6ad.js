@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/modernfetchingimages/static/js/runtime~main.c05ed79c.js"
   },
   {
-    "revision": "2458d90ce839bdda6bb8",
-    "url": "/modernfetchingimages/static/js/main.704502bb.chunk.js"
+    "revision": "cd690f63aacd2531342e",
+    "url": "/modernfetchingimages/static/js/main.eacea7f5.chunk.js"
   },
   {
     "revision": "e0794957992fadb24acb",
     "url": "/modernfetchingimages/static/js/2.03c2f0c1.chunk.js"
   },
   {
-    "revision": "2458d90ce839bdda6bb8",
-    "url": "/modernfetchingimages/static/css/main.841ac6f7.chunk.css"
+    "revision": "cd690f63aacd2531342e",
+    "url": "/modernfetchingimages/static/css/main.ad88e0e6.chunk.css"
   },
   {
-    "revision": "215e50afae658818efb7378c9c8501ea",
+    "revision": "47dd34165c33da73a5818c31f075c79c",
     "url": "/modernfetchingimages/index.html"
   }
 ];
