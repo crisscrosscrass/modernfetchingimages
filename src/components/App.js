@@ -34,6 +34,16 @@ class App extends Component{
 			marginBottom: 50,
 			paddingBottom: 50
 		}
+		const styleSpecial = {
+			width: '100%',
+			color: 'yellow',
+			textAlign: 'center',
+			verticalAlign: 'top',
+			fontSize: 8,
+			marginTop: 0,
+			marginBottom: 50,
+			paddingBottom: 50
+		}
 		return(
 			<div>
 				<Navbar handleClick={this.handleClick}>
@@ -42,6 +52,7 @@ class App extends Component{
 						<li><button onClick={() => this.ModernImage.current.updateImageAlisa() }>Alisa Amore <span style={styleNSFW}>NSFW</span></button></li>
 						<li><button onClick={() => this.ModernImage.current.updateImageJordan() }>Jordan Carver</button></li>
 						<li><button onClick={() => this.ModernImage.current.updateImageAlice() }>Alice Goodwin <span style={styleNSFW}>NSFW</span></button></li>
+						<li><button onClick={() => this.ModernImage.current.updateImageMatoro() }>Matoro <span style={styleSpecial}>ARTS</span></button></li>
 						<select>
 							<option>JSON</option>
 							<option>Google Sheet</option>

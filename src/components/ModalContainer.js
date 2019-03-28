@@ -23,7 +23,7 @@ function Modal(props){
             <button className="arrowRightButton" onClick={ () => props.goToNextImage(props)}>	&gt;</button>
             <button className="arrowLeftButton" onClick={ () => props.goToPreviousImage(props)}>&lt;</button>
             <div className="content">
-            <div id="modalcontent" className="modal">
+              <div id="modalcontent" className="modal">
                 <h2>{props.filename}</h2>
                 <p>{props.authorUrl}</p>
                 <img src={props.ModalImage} alt="" style={styleImage}/>

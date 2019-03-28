@@ -21,6 +21,7 @@ class ModernFetchingImages extends Component{
     this.updateImageForrest = this.updateImageForrest.bind(this)
     this.updateImageAlisa = this.updateImageAlisa.bind(this)
     this.updateImageAlice = this.updateImageAlice.bind(this)
+    this.updateImageMatoro = this.updateImageMatoro.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.removedMouse = this.removedMouse.bind(this)
     this.goToNextImage = this.goToNextImage.bind(this)
@@ -67,9 +68,24 @@ class ModernFetchingImages extends Component{
       this.setState({isLoaded:true})
     },
     simpleSheet: true
-  })
-  
-  }
+  })}
+  updateImageMatoro(){
+    this.setState({isLoaded:false})
+   // matoro image feed url https://docs.google.com/spreadsheets/d/1k2a7oM5_vORdIHObgVWwY-m2lSzSEBPdVWkT6su-z2g/export?format=csv
+   Tabletop.init({
+    key: '1k2a7oM5_vORdIHObgVWwY-m2lSzSEBPdVWkT6su-z2g',
+    callback: googleData => {
+      // console.log('google sheet data --->', googleData)
+      this.setState(prevState => ({ImageData: []}))
+      googleData.forEach(ImageObject => {
+        this.setState(prevState => ({
+          ImageData: [...prevState.ImageData, ImageObject]
+        }))
+      });
+      this.setState({isLoaded:true})
+    },
+    simpleSheet: true
+  })}
   handleClick(id){
     document.getElementById("imageGalleryItem"+id).classList.add('markedItem');
     if ( document.getElementById("modal-container").classList.contains('out') ){
