@@ -3,7 +3,7 @@ import './ModalStyling.css'
 
 function Modal(props){
     const styleImage = {
-        width: "100%"
+        width: props.ImageWidth
     }
     const backgroundClick = {
       position: 'fixed',
@@ -14,6 +14,17 @@ function Modal(props){
       backgroundColor: 'rgba(0,0,0,0)',
       padding: 50
     }
+    /*
+
+    test getting image size ? or test setting size based on provided data
+
+    var img = new Image();
+    img.onload = function() {
+      console.log(this.width + 'x' + this.height);
+    }
+    img.src = 'http://www.google.com/intl/en_ALL/images/logo.gif';
+
+    */
     return(
         <div id="modal-container">
           <div className="modal-background" >

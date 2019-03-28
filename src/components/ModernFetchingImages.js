@@ -16,7 +16,8 @@ class ModernFetchingImages extends Component{
       ModalImage: "",
       authorUrl: "",
       filename: "",
-      selectedID: ""
+      selectedID: "",
+      ImageWidth: "100%"
     }
     this.updateImageForrest = this.updateImageForrest.bind(this)
     this.updateImageAlisa = this.updateImageAlisa.bind(this)
@@ -86,15 +87,24 @@ class ModernFetchingImages extends Component{
     },
     simpleSheet: true
   })}
+  setImageWidthBasedOnScreen(ImageWidth){
+    if(ImageWidth > document.body.clientWidth ){
+      return "100%"
+    }else{
+      return ImageWidth
+    }
+  }
+  
   handleClick(id){
     document.getElementById("imageGalleryItem"+id).classList.add('markedItem');
     if ( document.getElementById("modal-container").classList.contains('out') ){
       document.getElementById("modal-container").classList.toggle('out');
     }
-
+    
     this.state.ImageData.forEach(ItemObject => {
       if(ItemObject.id === id){
-        // console.log(ItemObject.imageUrl)
+        
+        this.setState({ImageWidth: this.setImageWidthBasedOnScreen(ItemObject.width)})
         this.setState({ModalImage:ItemObject.imageUrl,authorUrl:ItemObject.author_url,filename:ItemObject.filename,selectedID: ItemObject.id})
       }
     })
@@ -160,7 +170,7 @@ class ModernFetchingImages extends Component{
     }else{
       return(
         <div>
-          <Modal goToPreviousImage={this.goToPreviousImage} goToNextImage={this.goToNextImage} closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} selectedID={this.state.selectedID}/>
+          <Modal goToPreviousImage={this.goToPreviousImage} goToNextImage={this.goToNextImage} closeModal={this.closeModal} ModalImage={this.state.ModalImage} authorUrl={this.state.authorUrl} filename={this.state.filename} selectedID={this.state.selectedID} ImageWidth={this.state.ImageWidth}/>
           <Modal />
           <div style={styleCenter}>
             <FetchingImagesContainer state={this.state} handleClick={this.handleClick} removedMouse={this.removedMouse}/>  
