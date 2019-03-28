@@ -88,7 +88,6 @@ class ModernFetchingImages extends Component{
     simpleSheet: true
   })}
   setImageWidthBasedOnScreen(ImageWidth){
-    console.log(ImageWidth > document.body.clientWidth)
     if(ImageWidth > document.body.clientWidth ){
       return "100%"
     }else{
